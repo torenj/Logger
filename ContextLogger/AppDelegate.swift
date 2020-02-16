@@ -61,8 +61,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //                -- modifierMask = 917504    (control + shift + option)
             //                -- modifierMask = 1703936   (option + command + shift)
             //                -- modifierMask = 1835008   (control + option + command)
-            print("\(modifierString) \(event?.charactersIgnoringModifiers)")
-            takeScreensShots(folderName: folder, eventString: modifierString + (event?.charactersIgnoringModifiers)!)
+            let character = event?.charactersIgnoringModifiers
+            var characterOutput = ""
+            if let character = character {
+                if character == "\r" {
+                    characterOutput = "enter"
+                }
+                else if character == "\t" {
+                    characterOutput = "tab"
+                }
+                else if character == String(Character(UnicodeScalar(NSDeleteCharacter)!)) {
+                    characterOutput = "delete"
+                }
+                else {
+                    characterOutput = character
+                }
+            }
+            print("\(modifierString) \(characterOutput)")
+            takeScreensShots(folderName: folder, eventString: modifierString + characterOutput)
         }
         
         eventMonitorMouse = GlobalEventMonitor(mask: NSEvent.EventTypeMask.leftMouseDown) { (event) in
