@@ -7,3 +7,7 @@ During development it is needed to give access to ContextLogger under accessibil
 To postprocess the images the python scripts needs to be run
 dot.py is handling all the mouse clicks
 generateImageDiffs.py is generating the bounding boxes around changes between start and end of character sequences
+
+To do this OpenCV is used via an Anaconda virtual environment which is activated in the following way:
+source activate logger
+
