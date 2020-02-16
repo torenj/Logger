@@ -126,8 +126,7 @@ func takeScreensShots(folderName: String, eventString: String) {
             let screenShot:CGImage = CGDisplayCreateImage(activeDisplays[Int(i-1)])!
             let bitmapRep = NSBitmapImageRep(cgImage: screenShot)
             let jpegData = bitmapRep.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:])!
-            
-            
+                        
             do {
                 try jpegData.write(to: fileUrl, options: .atomic)
             }
