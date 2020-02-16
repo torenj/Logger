@@ -43,6 +43,14 @@ func formatCurrentDateAsString() -> String {
     let s = dateFormatter.string(from: d)
     return s
 }
+func formatCurrentDateTimeAsString() -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm:ss.SSS"
+    let d = Date()
+    let s = dateFormatter.string(from: d)
+    return s
+}
+
 
 // MARK: check file directory for logs.
 
@@ -102,6 +110,49 @@ var applicationDocumentsDirectory: URL? = {
     return applicationSupportDirectory
 }()
 
+func takeScreensShots(folderName: String, eventString: String) {
+    var displayCount: UInt32 = 0;
+    var result = CGGetActiveDisplayList(0, nil, &displayCount)
+    if (result != CGError.success) {
+        print("error: \(result)")
+        return
+    }
+    let allocated = Int(displayCount)
+    let activeDisplays = UnsafeMutablePointer<CGDirectDisplayID>.allocate(capacity: allocated)
+    result = CGGetActiveDisplayList(displayCount, activeDisplays, &displayCount)
+    
+    if (result != CGError.success) {
+        print("error: \(result)")
+        return
+    }
+    
+    for i in 1...displayCount {
+        let unixTimestamp = createTimeStamp()
+        let fileUrl = URL(fileURLWithPath: folderName + "\(formatCurrentDateTimeAsString())_\(i)_{\(eventString)}.jpg", isDirectory: true)
+        let screenShot:CGImage = CGDisplayCreateImage(activeDisplays[Int(i-1)])!
+        let bitmapRep = NSBitmapImageRep(cgImage: screenShot)
+        let jpegData = bitmapRep.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:])!
+        
+        
+        do {
+            try jpegData.write(to: fileUrl, options: .atomic)
+        }
+        catch {print("error: \(error)")}
+    }
+}
+
+func createTimeStamp() -> Int32
+{
+    return Int32(Date().timeIntervalSince1970)
+}
+
+
+
+
+
+
+
+
 // MARK: Write stream to file
 
 func logWriter(writeToLine: String) {
@@ -111,6 +162,7 @@ func logWriter(writeToLine: String) {
     
     print(path)
     print(writeToLine)
+    takeScreensShots(folderName: folder,eventString: writeToLine)
     if let outputStream = OutputStream(toFileAtPath: path, append: true) {
         outputStream.open()
         outputStream.write(writeToLine, encoding: String.Encoding.utf8, allowLossyConversion:true)
