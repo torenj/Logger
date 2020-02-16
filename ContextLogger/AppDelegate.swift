@@ -103,6 +103,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         constructRestOfMenu(menu: menu)
     }
     
+    func constructProcessing() {
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Processing...", action: nil, keyEquivalent: ""))
+        constructRestOfMenu(menu: menu)
+    }
+    
     func constructRestOfMenu(menu: NSMenu) {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit Logger", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
@@ -118,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func recordingStopped() {
         print("Stop Recording")
-        constructMenuInitial()
+        constructProcessing()
         eventMonitorKeyboard?.stop()
         eventMonitorMouse?.stop()
         startPostProcessingTask()
@@ -143,11 +149,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
           task in
           DispatchQueue.main.async(execute: {
             print("script terminated")
+            self.constructMenuInitial()
           })
         }
 
         postProcessingProcess?.launch()
-        postProcessingProcess?.waitUntilExit()
     }
 }
 
