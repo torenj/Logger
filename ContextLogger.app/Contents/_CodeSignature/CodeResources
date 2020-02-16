@@ -12,6 +12,18 @@
 		<data>
 		nQ1XgUjVB1LOvMqwNcvvF3Id0KA=
 		</data>
+		<key>Resources/dot.py</key>
+		<data>
+		N2e2FGTfhZ3q7lb4x2BDHyTU4LM=
+		</data>
+		<key>Resources/generateImageDiffs.py</key>
+		<data>
+		+/AjZLfxuk4DWifA5D8gUQuYDJk=
+		</data>
+		<key>Resources/postProcessing.sh</key>
+		<data>
+		0JWmuvz/iIaZITkefKVDTCereLQ=
+		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -99,6 +111,27 @@
 			<key>hash2</key>
 			<data>
 			uTbG0ie1t4agSaCdaoM8YEvO94LttXGLThO8DYEaqFo=
+			</data>
+		</dict>
+		<key>Resources/dot.py</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wzREor8MmWeK8GVwJHUME8KPTs72lLQPZiE0G56bi0c=
+			</data>
+		</dict>
+		<key>Resources/generateImageDiffs.py</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lSiy4eBLgUJdLJ/tBt5v4vTe2U63HrzP4ILQ+zh9Wbk=
+			</data>
+		</dict>
+		<key>Resources/postProcessing.sh</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			w+ffuOLP+yo8Kz0ytzrVOv/EPAw8LxWD7I57R4kJRHg=
 			</data>
 		</dict>
 	</dict>
