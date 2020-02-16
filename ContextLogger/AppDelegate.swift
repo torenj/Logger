@@ -8,12 +8,14 @@ private struct Constants {
 var eventMonitorKeyboard: GlobalEventMonitor?
 var eventMonitorMouse: GlobalEventMonitor?
 
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
-    let fileManager = FileManager.default    
+    let fileManager = FileManager.default
+    var postProcessingProcess: Process?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let _ = acquirePrivileges()
@@ -24,6 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = nil
         }
         constructMenuInitial()
+        copyFileToDocumentsFolder(nameForFile: "dot", extForFile: "py")
+        copyFileToDocumentsFolder(nameForFile: "generateImageDiffs", extForFile: "py")
     }
     
     func setupListeners() {
@@ -117,10 +121,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         constructMenuInitial()
         eventMonitorKeyboard?.stop()
         eventMonitorMouse?.stop()
+        startPostProcessingTask()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func startPostProcessingTask() {
+        guard let path = Bundle.main.path(forResource: "postProcessing",ofType:"sh") else {
+          print("Unable to locate postProcessing.sh")
+          return
+        }
+        
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+        postProcessingProcess = Process()
+        postProcessingProcess?.launchPath = path
+        postProcessingProcess?.arguments = [documentDirectory.absoluteString.replacingOccurrences(of: "file://", with: "")]
+        postProcessingProcess?.terminationHandler = {
+          task in
+          DispatchQueue.main.async(execute: {
+            print("script terminated")
+          })
+        }
+
+        postProcessingProcess?.launch()
+        postProcessingProcess?.waitUntilExit()
     }
 }
 
@@ -183,4 +210,20 @@ func formatCurrentDateTimeAsString() -> String {
     let d = Date()
     let s = dateFormatter.string(from: d)
     return s
+}
+
+func copyFileToDocumentsFolder(nameForFile: String, extForFile: String) {
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    let destURL = documentsURL!.appendingPathComponent(nameForFile).appendingPathExtension(extForFile)
+    guard let sourceURL = Bundle.main.url(forResource: nameForFile, withExtension: extForFile)
+        else {
+            print("Source File not found.")
+            return
+    }
+        let fileManager = FileManager.default
+        do {
+            try fileManager.copyItem(at: sourceURL, to: destURL)
+        } catch {
+            print("Unable to copy file")
+        }
 }
