@@ -121,7 +121,7 @@ func takeScreensShots(folderName: String, eventString: String) {
     }
     
     for i in 1...displayCount {
-        if let appName = NSWorkspace.shared.frontmostApplication?.localizedName {
+        if let appName = NSWorkspace.shared.frontmostApplication?.localizedName?.replacingOccurrences(of: " ", with: ""){
             let fileUrl = URL(fileURLWithPath: folderName + "\(formatCurrentDateTimeAsString())_\(i)_\(appName)_{\(eventString)}.jpg", isDirectory: true)
             let screenShot:CGImage = CGDisplayCreateImage(activeDisplays[Int(i-1)])!
             let bitmapRep = NSBitmapImageRep(cgImage: screenShot)
