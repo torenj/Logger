@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940B198E227395BB0043B940 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B198D227395BB0043B940 /* GlobalEventMonitor.swift */; };
 		943A011F226D751400B1DDDB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A011E226D751400B1DDDB /* main.swift */; };
 		943A0126226D75B800B1DDDB /* StreamWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A0125226D75B800B1DDDB /* StreamWriter.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		940B198D227395BB0043B940 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GlobalEventMonitor.swift; path = Logger/GlobalEventMonitor.swift; sourceTree = "<group>"; };
 		943A011B226D751400B1DDDB /* Logger */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Logger; sourceTree = BUILT_PRODUCTS_DIR; };
 		943A011E226D751400B1DDDB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		943A0125226D75B800B1DDDB /* StreamWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamWriter.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 		943A0112226D751400B1DDDB = {
 			isa = PBXGroup;
 			children = (
+				940B198D227395BB0043B940 /* GlobalEventMonitor.swift */,
 				943A011D226D751400B1DDDB /* Logger */,
 				943A011C226D751400B1DDDB /* Products */,
 			);
@@ -124,6 +127,7 @@
 			files = (
 				943A0126226D75B800B1DDDB /* StreamWriter.swift in Sources */,
 				943A011F226D751400B1DDDB /* main.swift in Sources */,
+				940B198E227395BB0043B940 /* GlobalEventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

