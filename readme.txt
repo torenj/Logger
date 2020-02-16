@@ -25,16 +25,13 @@ pip install opencv-python
 pip install scikit-image
 pip install imutils
 
-sh setupEnvironment.sh
-
 Normal use
-1. start ContextLogger
+1. open ContextLogger.app
 2. do the sequence
-3. stop the ContextLogger
-4. open terminal in the git workspace
-5. sh getInputFiles.sh
-6. sh postProcessing.sh
-7. open output
+3. stop the ContextLogger in GUI
+4. open terminal in the git workspace where the ExternalFiles are
+5. sh postProcessing.sh
+6. open output
 
 repeat :)
 
