@@ -15,7 +15,7 @@ source activate logger
 
 Installation
 
-install Anaconda
+Install Anaconda from
 https://www.anaconda.com/distribution/#download-section
 
 conda create -n logger python=3
@@ -25,7 +25,7 @@ pip install opencv-python
 pip install scikit-image
 pip install imutils
 
-
+sh setupEnvironment.sh
 
 Normal use
 1. start ContextLogger
