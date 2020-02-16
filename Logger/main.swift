@@ -188,10 +188,38 @@ class ApplicationDelegate: NSObject, NSApplicationDelegate {
         
         let folder = applicationSupportDirectory.path + "/"
         eventMonitorKeyboard = GlobalEventMonitor(mask: NSEvent.EventTypeMask.keyDown) { (event) in
-            takeScreensShots(folderName: folder,eventString:(event?.characters)!)
+            var modifierString = ""
+            switch event?.modifierFlags.rawValue {
+            case 256:
+                modifierString = ""
+            case 131330:
+                modifierString = "(shift)+"
+            case 262401:
+                modifierString = "(control)+"
+            case 1048840:
+                modifierString = "(cmd)+"
+            default:
+                print("unhandled modifier mask \(event?.modifierFlags.rawValue)")
+            }
+//                -- modifierMask = 131072    (shift)
+//                -- modifierMask = 262144    (control)
+//                -- modifierMask = 524288    (option)
+//                -- modifierMask = 1048576   (command)
+//                -- modifierMask = 786432    (control + option)
+//                -- modifierMask = 393216    (control + shift)
+//                -- modifierMask = 1310720   (control + command)
+//                -- modifierMask = 1572864   (option + command)
+//                -- modifierMask = 655360    (shift + option)
+//                -- modifierMask = 1179648   (command + shift)
+//                -- modifierMask = 917504    (control + shift + option)
+//                -- modifierMask = 1703936   (option + command + shift)
+//                -- modifierMask = 1835008   (control + option + command)
+            print("\(modifierString) \(event?.charactersIgnoringModifiers)")
+            takeScreensShots(folderName: folder, eventString: modifierString + (event?.charactersIgnoringModifiers)!)
         }
+        
         eventMonitorMouse = GlobalEventMonitor(mask: NSEvent.EventTypeMask.leftMouseDown) { (event) in
-            takeScreensShots(folderName: folder,eventString:"mouseDown(\(Int(event?.locationInWindow.x ?? 0)),\(Int(event?.locationInWindow.y ?? 0))))")
+            takeScreensShots(folderName: folder, eventString:"mouseDown(\(Int(event?.locationInWindow.x ?? 0)),\(Int(event?.locationInWindow.y ?? 0))))")
         }
         eventMonitorKeyboard?.start()
         eventMonitorMouse?.start()
