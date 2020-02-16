@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case 1048840:
                 modifierString = "(cmd)+"
             default:
-                print("Unhandled modifier mask \(event?.modifierFlags.rawValue)")
+                print("Unhandled modifier mask \(String(describing: event?.modifierFlags.rawValue))")
             }
             //                -- modifierMask = 131072    (shift)
             //                -- modifierMask = 262144    (control)

@@ -13,6 +13,9 @@
 		9438E51D2290544400138504 /* ContextLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438E51C2290544400138504 /* ContextLoggerTests.swift */; };
 		9438E5282290544400138504 /* ContextLoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438E5272290544400138504 /* ContextLoggerUITests.swift */; };
 		9438E53622905AF800138504 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438E53522905AF800138504 /* GlobalEventMonitor.swift */; };
+		949E884823F9902B00A0F89C /* postProcessing.sh in Resources */ = {isa = PBXBuildFile; fileRef = 949E884323F9902A00A0F89C /* postProcessing.sh */; };
+		949E884923F9902B00A0F89C /* generateImageDiffs.py in Resources */ = {isa = PBXBuildFile; fileRef = 949E884423F9902A00A0F89C /* generateImageDiffs.py */; };
+		949E884A23F9902B00A0F89C /* dot.py in Resources */ = {isa = PBXBuildFile; fileRef = 949E884523F9902A00A0F89C /* dot.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		9438E5272290544400138504 /* ContextLoggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLoggerUITests.swift; sourceTree = "<group>"; };
 		9438E5292290544400138504 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9438E53522905AF800138504 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
+		949E884323F9902A00A0F89C /* postProcessing.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postProcessing.sh; sourceTree = "<group>"; };
+		949E884423F9902A00A0F89C /* generateImageDiffs.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = generateImageDiffs.py; sourceTree = "<group>"; };
+		949E884523F9902A00A0F89C /* dot.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dot.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,7 @@
 		9438E4FF2290544200138504 = {
 			isa = PBXGroup;
 			children = (
+				949E884223F98F7900A0F89C /* ExternalFiles */,
 				9438E50A2290544200138504 /* ContextLogger */,
 				9438E51B2290544400138504 /* ContextLoggerTests */,
 				9438E5262290544400138504 /* ContextLoggerUITests */,
@@ -122,6 +129,16 @@
 				9438E5292290544400138504 /* Info.plist */,
 			);
 			path = ContextLoggerUITests;
+			sourceTree = "<group>";
+		};
+		949E884223F98F7900A0F89C /* ExternalFiles */ = {
+			isa = PBXGroup;
+			children = (
+				949E884523F9902A00A0F89C /* dot.py */,
+				949E884423F9902A00A0F89C /* generateImageDiffs.py */,
+				949E884323F9902A00A0F89C /* postProcessing.sh */,
+			);
+			path = ExternalFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,18 +204,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = TNJ;
 				TargetAttributes = {
 					9438E5072290544200138504 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1130;
 					};
 					9438E5172290544400138504 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = 9438E5072290544200138504;
 					};
 					9438E5222290544400138504 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = 9438E5072290544200138504;
 					};
 				};
@@ -228,7 +248,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949E884A23F9902B00A0F89C /* dot.py in Resources */,
 				9438E50E2290544400138504 /* Assets.xcassets in Resources */,
+				949E884823F9902B00A0F89C /* postProcessing.sh in Resources */,
+				949E884923F9902B00A0F89C /* generateImageDiffs.py in Resources */,
 				9438E5112290544400138504 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ContextLogger/ContextLogger.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -433,7 +457,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -442,6 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ContextLogger/ContextLogger.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -453,7 +478,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -472,7 +497,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContextLogger.app/Contents/MacOS/ContextLogger";
 			};
 			name = Debug;
@@ -492,7 +517,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContextLogger.app/Contents/MacOS/ContextLogger";
 			};
 			name = Release;
@@ -511,7 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLoggerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = ContextLogger;
 			};
 			name = Debug;
@@ -530,7 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.logging.ContextLoggerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = ContextLogger;
 			};
 			name = Release;
