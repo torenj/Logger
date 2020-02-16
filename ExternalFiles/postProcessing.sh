@@ -9,7 +9,7 @@ if mv ~/Library/Application\ Support/dk.logging.ContextLogger/* ./input &> /dev/
     eval "$(conda shell.bash hook)"
     conda activate logger
     python ${1}dot.py
-    python ${1}generateImageDiffs.py
+    python ${1}generateImageDiffs.py >> ${1}sequencelog.txt
     if mv ./input/* ./input_old &> /dev/null; then
         echo "Moved processed input files out of the way"
     else
