@@ -42,6 +42,7 @@ print(characters)
 print("======================================================")
 total = len(imagePairs)
 for (i,(firstImage,lastImage)) in enumerate(imagePairs):
+    print("{0}/{1}".format(i+1,total))
     imagePath1 = "./input/"+firstImage
     imagePath2 = "./input/"+lastImage
     # load the two input images
@@ -54,6 +55,9 @@ for (i,(firstImage,lastImage)) in enumerate(imagePairs):
 
     # compute the Structural Similarity Index (SSIM) between the two
     # images, ensuring that the difference image is returned
+    if grayA.shape != grayB.shape:
+        print("image shapes are not matching, skip image diff")
+        continue
     (score, diff) = compare_ssim(grayA, grayB, full=True)
     diff = (diff * 255).astype("uint8")
     # threshold the difference image, followed by finding contours to
@@ -71,4 +75,3 @@ for (i,(firstImage,lastImage)) in enumerate(imagePairs):
         cv2.rectangle(imageA, (x, y), (x + w, y + h), (0, 0, 255), 2)
         cv2.rectangle(imageB, (x, y), (x + w, y + h), (0, 0, 255), 2)
     cv2.imwrite("./output/"+lastImage[:22]+"_diff"+str(i)+".jpg",imageB)
-    print("{0}/{1}".format(i+1,total))

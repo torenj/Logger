@@ -1,7 +1,6 @@
 import Cocoa
 import ApplicationServices
 
-
 private struct Constants {
     static let applicationDocumentsDirectoryName = "dk.logging.ContextLogger"
 }
@@ -17,23 +16,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let fileManager = FileManager.default    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let _ = acquirePrivileges()
+        setupListeners()
+        
+        if let button = statusItem.button {
+            button.image = NSImage(named: "StatusBarButtonImage")
+            button.action = nil
+        }
+        constructMenuInitial()
+    }
+    
+    func setupListeners() {
         let urls = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
         var applicationSupportDirectory = urls[urls.count - 1] as URL
-        
-        let _ = acquirePrivileges()
         applicationSupportDirectory = applicationSupportDirectory.appendingPathComponent(Constants.applicationDocumentsDirectoryName)
         do {
             try FileManager.default.createDirectory(atPath:applicationSupportDirectory.relativePath, withIntermediateDirectories: true, attributes: nil)
         } catch {
             print(error)
         }
-        if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
-            button.action = nil
-        }
-        constructMenuInitial()
         
         let folder = applicationSupportDirectory.path + "/"
+        
         eventMonitorKeyboard = GlobalEventMonitor(mask: NSEvent.EventTypeMask.keyDown) { (event) in
             var modifierString = ""
             switch event?.modifierFlags.rawValue {
@@ -46,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case 1048840:
                 modifierString = "(cmd)+"
             default:
-                print("unhandled modifier mask \(event?.modifierFlags.rawValue)")
+                print("Unhandled modifier mask \(event?.modifierFlags.rawValue)")
             }
             //                -- modifierMask = 131072    (shift)
             //                -- modifierMask = 262144    (control)
@@ -61,19 +65,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //                -- modifierMask = 917504    (control + shift + option)
             //                -- modifierMask = 1703936   (option + command + shift)
             //                -- modifierMask = 1835008   (control + option + command)
-            let character = event?.charactersIgnoringModifiers
             var characterOutput = ""
-            if let character = character {
-                if character == "\r" {
+            if let character = event?.charactersIgnoringModifiers {
+                switch character {
+                case String(Character(UnicodeScalar(NSCarriageReturnCharacter)!)):
                     characterOutput = "enter"
-                }
-                else if character == "\t" {
-                    characterOutput = "tab"
-                }
-                else if character == String(Character(UnicodeScalar(NSDeleteCharacter)!)) {
+                case String(Character(UnicodeScalar(NSDeleteCharacter)!)):
                     characterOutput = "delete"
-                }
-                else {
+                case String(Character(UnicodeScalar(NSTabCharacter)!)):
+                    characterOutput = "tab"
+                default:
                     characterOutput = character
                 }
             }
@@ -89,14 +90,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func constructMenuInitial() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Start Recording", action: #selector(AppDelegate.recordingStarted), keyEquivalent: "r"))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit Logger", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-        statusItem.menu = menu
+        constructRestOfMenu(menu: menu)
     }
     
     func constructMenuRecording() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Stop Recording", action: #selector(AppDelegate.recordingStopped), keyEquivalent: "s"))
+        constructRestOfMenu(menu: menu)
+    }
+    
+    func constructRestOfMenu(menu: NSMenu) {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit Logger", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
@@ -133,6 +136,7 @@ func acquirePrivileges() -> Bool {
     return accessibilityEnabled == true
 }
 
+//MARK: Screenshot functionality
 func takeScreensShots(folderName: String, eventString: String) {
     var displayCount: UInt32 = 0;
     var result = CGGetActiveDisplayList(0, nil, &displayCount)
