@@ -71,20 +71,14 @@ var applicationDocumentsDirectory: URL? = {
     var error: NSError?
     do {
         let properties = try applicationSupportDirectory.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
-            
         if let isDirectory = properties.isDirectory {
-            
             if !isDirectory {
-                
                 let description = NSLocalizedString("Could not access the application data folder.", comment: "Failed to initialize applicationSupportDirectory")
-                
                 let reason = NSLocalizedString("Found a file in its place.", comment: "Failed to initialize applicationSupportDirectory")
-                
                 let userInfo = [
                     NSLocalizedDescriptionKey: description,
                     NSLocalizedFailureReasonErrorKey: reason
                 ]
-                
                 error = NSError(domain: Constants.errorDomain, code: 101, userInfo: userInfo)
                 print(error)
                 fatalError("Could not access the application data folder.")
@@ -127,7 +121,6 @@ func takeScreensShots(folderName: String, eventString: String) {
     }
     
     for i in 1...displayCount {
-        let unixTimestamp = createTimeStamp()
         let fileUrl = URL(fileURLWithPath: folderName + "\(formatCurrentDateTimeAsString())_\(i)_{\(eventString)}.jpg", isDirectory: true)
         let screenShot:CGImage = CGDisplayCreateImage(activeDisplays[Int(i-1)])!
         let bitmapRep = NSBitmapImageRep(cgImage: screenShot)
@@ -139,11 +132,6 @@ func takeScreensShots(folderName: String, eventString: String) {
         }
         catch {print("error: \(error)")}
     }
-}
-
-func createTimeStamp() -> Int32
-{
-    return Int32(Date().timeIntervalSince1970)
 }
 
 // MARK: Write stream to file
@@ -219,7 +207,7 @@ class ApplicationDelegate: NSObject, NSApplicationDelegate {
         }
         
         eventMonitorMouse = GlobalEventMonitor(mask: NSEvent.EventTypeMask.leftMouseDown) { (event) in
-            takeScreensShots(folderName: folder, eventString:"mouseDown(\(Int(event?.locationInWindow.x ?? 0)),\(Int(event?.locationInWindow.y ?? 0))))")
+            takeScreensShots(folderName: folder, eventString:"mouseDown(\(Int(event?.locationInWindow.x ?? 0)),\(Int(event?.locationInWindow.y ?? 0)))")
         }
         eventMonitorKeyboard?.start()
         eventMonitorMouse?.start()
