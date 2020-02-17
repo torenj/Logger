@@ -26,8 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = nil
         }
         constructMenuInitial()
-        copyFileToDocumentsFolder(nameForFile: "dot", extForFile: "py")
-        copyFileToDocumentsFolder(nameForFile: "generateImageDiffs", extForFile: "py")
     }
     
     func setupListeners() {
@@ -140,11 +138,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
           return
         }
         
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-
+        copyFileToDocumentsFolder(nameForFile: "dot", extForFile: "py")
+        copyFileToDocumentsFolder(nameForFile: "generateImageDiffs", extForFile: "py")
+        
+        let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        var documentsPath = documentDirectoryUrl.absoluteString
+        documentsPath.remove(at: documentDirectoryUrl.absoluteString.index(before: documentDirectoryUrl.absoluteString.endIndex))
+        documentsPath = documentsPath.replacingOccurrences(of: "file://", with: "")
+        
         postProcessingProcess = Process()
         postProcessingProcess?.launchPath = path
-        postProcessingProcess?.arguments = [documentDirectory.absoluteString.replacingOccurrences(of: "file://", with: "")]
+        postProcessingProcess?.arguments = [documentsPath]
         postProcessingProcess?.terminationHandler = {
           task in
           DispatchQueue.main.async(execute: {
