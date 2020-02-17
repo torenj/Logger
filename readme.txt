@@ -27,11 +27,10 @@ pip install imutils
 
 Normal use
 1. open ContextLogger.app
-2. do the sequence
-3. stop the ContextLogger in GUI
-4. open terminal in the git workspace where the ExternalFiles are
-5. sh postProcessing.sh
-6. open output
+2. start recording using the first status menu item
+3. do the sequence you want to record
+4. stop the ContextLogger in GUI
+5. open OutputImageFolder folder under ~/Documents
 
 repeat :)
 
