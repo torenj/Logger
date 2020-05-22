@@ -110,6 +110,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func constructRestOfMenu(menu: NSMenu) {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit Logger", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem.separator())
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],  let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"]{
+            menu.addItem(NSMenuItem(title: "Version \(appVersion) (\(buildVersion))", action: nil, keyEquivalent: ""))
+        }
         statusItem.menu = menu
     }
     
