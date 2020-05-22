@@ -15,7 +15,7 @@ mkdir output &> /dev/null
 if [ "$(ls -A "$APP_SUPPORT_FOLDER")" ]; then
     for file in "$APP_SUPPORT_FOLDER"*; do mv -- "$file" ./input ; done
     echo_time "Moved captured files to input folder" >> "${DOCUMENTS}/sequencelog.txt"
-    source ~/.bash_profile >> "${DOCUMENTS}/debuglog.txt"
+    source ~/.zshrc >> "${DOCUMENTS}/debuglog.txt"
     eval "$(conda shell.bash hook)" >> "${DOCUMENTS}/debuglog.txt"
     conda activate logger >> "${DOCUMENTS}/debuglog.txt"
     python "${DOCUMENTS}/dot.py" >> "${DOCUMENTS}/sequencelog.txt"

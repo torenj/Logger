@@ -22,9 +22,21 @@ To do this OpenCV is used via an Anaconda virtual environment which is created/a
 conda create -n logger python=3
 conda activate logger
 
+# Install pip if not already present in virtual env
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+
+# Update pip
+pip install -U pip
+
 pip install opencv-python
 pip install scikit-image
 pip install imutils
+
+# setup zsh
+nano ~/.zshrc
+source ~/.bash_profile
+save
 
 Normal use
 1. open ContextLogger.app
