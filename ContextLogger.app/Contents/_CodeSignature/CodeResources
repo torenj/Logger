@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Assets.car</key>
 		<data>
-		InMT+VKN2lB+XQq42h8c47seoZ8=
+		RtKc529K0aMUVqvr6+PBGKt0u8w=
 		</data>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Resources/dot.py</key>
 		<data>
-		N2e2FGTfhZ3q7lb4x2BDHyTU4LM=
+		fC42f7Ftn7Pg+fihhsxi1335HN8=
 		</data>
 		<key>Resources/generateImageDiffs.py</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Resources/postProcessing.sh</key>
 		<data>
-		deK9BAgUZIJKmqWC1RXu5Jf1A2o=
+		ALqhWh+EBDHxBEnR5yyv88Xnc+s=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -103,7 +103,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ohpLhJb8ABzIZO4agfiEF+tjmQssXOfB8pWBF7+33YE=
+			t9z9RSgn/9ArRl+Y0I4J8AEwS50f3tBIFD/KX9nfCOA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
@@ -117,7 +117,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wzREor8MmWeK8GVwJHUME8KPTs72lLQPZiE0G56bi0c=
+			+O/CX3UNo8Rak5JryBU4mv0h5BwICe+UnhUX6J5xbC4=
 			</data>
 		</dict>
 		<key>Resources/generateImageDiffs.py</key>
@@ -131,7 +131,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vEcyaIbHfEkDroSLrJ3H3BWOdZAyvq0+q5LfRlut1mU=
+			NSZBJZFqdKSMJRvNEvEbOa9uReLA6v6x0dKhKHv+NPk=
 			</data>
 		</dict>
 	</dict>

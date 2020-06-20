@@ -14,4 +14,4 @@ for entry in listOfFiles:
         yOnImage = int(y) * 2
         cv2.circle(image,(int(xOnImage), int(height-yOnImage)), 25, (0,0,255),5)
         cv2.imwrite('./output/'+entry,image)
-
+print("dots processed")
