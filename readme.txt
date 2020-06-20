@@ -33,7 +33,7 @@ pip install opencv-python
 pip install scikit-image
 pip install imutils
 
-# setup zsh
+# setup zsh (maybe optional)
 nano ~/.zshrc
 source ~/.bash_profile
 save
@@ -41,9 +41,10 @@ save
 Normal use
 1. open ContextLogger.app
 2. start recording using the first status menu item
-3. do the sequence you want to record
-4. stop the ContextLogger in GUI
-5. open OutputImageFolder folder under ~/Documents
+3. allow accessibility access, screen recording access and documents folder access (first run only)
+4. do the sequence you want to record
+5. stop the ContextLogger in GUI
+6. open OutputImageFolder folder under ~/Documents
 
 repeat :)
 
