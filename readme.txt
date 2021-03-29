@@ -33,11 +33,6 @@ pip install opencv-python
 pip install scikit-image
 pip install imutils
 
-# setup zsh (maybe optional)
-nano ~/.zshrc
-source ~/.bash_profile
-save
-
 Normal use
 1. open ContextLogger.app
 2. start recording using the first status menu item
