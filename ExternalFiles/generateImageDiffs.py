@@ -1,6 +1,6 @@
 import os, fnmatch
 import re
-from skimage.measure import compare_ssim
+from skimage.metrics import structural_similarity as ssim
 import imutils
 import cv2
 
@@ -23,7 +23,7 @@ def writeImageDiffs(imagePairs, screenNumber):
         if grayA.shape != grayB.shape:
             print("image shapes are not matching, skip image diff")
             continue
-        (score, diff) = compare_ssim(grayA, grayB, full=True)
+        (score, diff) = ssim(grayA, grayB, full=True)
         diff = (diff * 255).astype("uint8")
         # threshold the difference image, followed by finding contours to
         # obtain the regions of the two input images that differ
