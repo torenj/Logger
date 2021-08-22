@@ -1,3 +1,5 @@
+See the web page which is also a work in progress https://logrewind.wordpress.com
+
 The generated screenshots will be placed under the folder
 /Users/<username>/Library/Application Support/dk.logging.Logger/
 Get then to the input folder using the getInputFiles.sh script
